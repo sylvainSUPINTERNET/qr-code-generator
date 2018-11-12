@@ -13,9 +13,38 @@ const qr = require('qr-image');
  * Reference color for console output
  */
 const color_reference = {
-    FgRed : "\x1b[31m"
+    FgRed: "\x1b[31m"
 };
 
+
+function _promise(val) {
+    return new Promise((resolve, reject) => {
+        setTimeout(function() {
+            if(val === 1){
+                resolve("RESOLVED")
+            } else {
+                reject("ERROR hit")
+            }
+        }, 2000);
+    })
+}
+
+async function testAsync(val) {
+    const test = await _promise(val)
+    console.log(test);
+}
+
+
+testAsync(1)
+    .then(function (data) {
+        console.log(data)
+    })
+    .catch(err =>
+        console.log("Error", err));
+
+console.log("dont waiting for promise");
+
+/*
 module.exports = {
 
     /**
@@ -23,6 +52,7 @@ module.exports = {
      * @param {string} type : Type of your picture
      * @param {number, string} data : Your qr code data (cast to string)
      */
+/*
 	generate: function(type, data){
         console.log("TYPE : ", type);
         console.log("DATA :", data);
@@ -41,6 +71,7 @@ module.exports = {
                     let qr_pic = qr.image(dataStr, { type: type });
                     qr_pic.pipe(fs.createWriteStream('i_love_qr.svg'))
                     */
+/*
 
                 } else {
                     console.error("Invalid type for data argument !");
@@ -64,7 +95,7 @@ module.exports = {
 
 	}
 };
-
+*/
 
 
 
