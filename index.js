@@ -3,68 +3,116 @@
  * Node API
  */
 const fs = require('fs');
+const path = require('path');
 
 /**
  * Dependencies
  */
 const qr = require('qr-image');
 
+
 /**
- * Reference color for console output
+ * For Asynchronous test
+ * @param data
+ * @param picName
+ * @param picType
+ * @returns {Promise<any>}
+ * @private
  */
-const color_reference = {
-    FgRed : "\x1b[31m"
-};
+function _promise(data, picName, picType) {
+    return new Promise((resolve, reject) => {
+        if (data && picType && picName) {
+            if (typeof picName !== 'string') {
+                reject("Err : picName is not a string. Expected string type.")
+            }
+            if (typeof data !== 'string') {
+                reject("Err : data parameter is not string. Expected string type.");
+            } else {
+                if (typeof picType === 'string') {
+                    if (picType === "svg" || picType === "png" || picType === "jpg" || picType === "jpeg") {
+                        let qr_pic =
+                            qr
+                                .image(data, {type: picType});
+                        let stream = qr_pic.pipe(fs.createWriteStream(`${picName}.${picType}`));
 
-module.exports = {
+                        stream.on('finish', function () {
+                            let response = {
+                                error: null,
+                                pic_path: path.resolve(`${picName}.${picType}`),
+                                data: " -- qr image generate successfully --"
+                            };
+                            resolve(response);
+                        });
 
-    /**
-     *
-     * @param {string} type : Type of your picture
-     * @param {number, string} data : Your qr code data (cast to string)
-     */
-	generate: function(type, data){
-        console.log("TYPE : ", type);
-        console.log("DATA :", data);
-        console.log("running test.");
+                        stream.on('error', function (err) {
+                            let error = {
+                                error: true,
+                                pic_path: path.resolve(`${picName}.${picType}`),
+                                data: err
+                            };
+                            reject(error);
+                        });
 
-
-        if(data && type){
-            let dataStr;
-            if(typeof data !== 'string'){
-                if(typeof data === 'number'){
-                    dataStr = data.toString();
-
-                    // TODO check picture format -> only SVG, PNG, JPEG, JPG are accepted
-
-                    /*
-                    let qr_pic = qr.image(dataStr, { type: type });
-                    qr_pic.pipe(fs.createWriteStream('i_love_qr.svg'))
-                    */
-
+                    } else {
+                        reject("Err : only png / jpeg / jpg / svg are supported.");
+                    }
                 } else {
-                    console.error("Invalid type for data argument !");
-                    console.log(color_reference.FgRed);
-                    console.error(` > type : string / number expected`);
-                    console.error(` > type : ${typeof type} given`);
-                    process.exit(1);
+                    reject("Err : data parameter is not string. Expected string type.");
                 }
             }
-		} else {
-            console.log(color_reference.FgRed);
-            console.error(`Missing argument in generate method : function generate(string, string){} expected`);
-            console.error(` > type : ${type} given`);
-            console.error(` > data : ${data} given`);
-            process.exit(1);
-		}
+        } else {
+            reject("Err : data/name/type missing. Expected string.");
+        }
+    })
+}
+
+/**
+ * Asynchronous qr image generation
+ * @param data
+ * @param picName
+ * @param picType
+ * @returns {Promise<void>}
+ */
+async function generateQrImageAsync(data, picName, picType) {
+    const generate_data = await _promise(data, picName, picType);
+    return generate_data;
+}
+
+/**
+ * Synchronous qr image generate
+ * @param data
+ * @param picName
+ * @param picType
+ * @return {Object} response from generation action
+ */
+function generateQrImage(data, picName, picType) {
+    let qr_pic =
+        qr
+            .image(data, {type: picType});
+    let stream = qr_pic.pipe(fs.createWriteStream(`${picName}.${picType}`));
+
+    stream.on('finish', function () {
+        let response = {
+            error: null,
+            pic_path: path.resolve(`${picName}.${picType}`),
+            data: " -- qr image generate successfully --"
+        };
+        return response;
+    });
+
+    stream.on('error', function (err) {
+        let error = {
+            error: true,
+            pic_path: path.resolve(`${picName}.${picType}`),
+            data: err
+        };
+        return error;
+    });
+}
 
 
-
-
-
-	}
-};
-
+module.exports.generateQrImageAsync = generateQrImageAsync;
+module.exports.generateQrImage = generateQrImage;
 
 
 
