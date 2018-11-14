@@ -61,6 +61,6 @@ qrGenerator
 
 | Params       | Type        | description    | Infos |
 | ------------- |:-------------:| :---------:| :---------:|
-| data     | String | your data ( please check  |     Numeric only    Max. 7,089 characters (0, 1, 2, 3, 4, 5, 6, 7, 8, 9) / Alphanumeric    Max. 4,296 characters (0–9, A–Z [upper-case only], space, $, %, *, +, -, ., /, :) / Binary/byte     Max. 2,953 characters (8-bit bytes) (23624 bits)
+| data     | String | qr picture data|     Numeric only    Max. 7,089 characters (0, 1, 2, 3, 4, 5, 6, 7, 8, 9) / Alphanumeric    Max. 4,296 characters (0–9, A–Z [upper-case only], space, $, %, *, +, -, ., /, :) / Binary/byte     Max. 2,953 characters (8-bit bytes) (23624 bits)
 | picName     | String  | name of your file | |
 | picType     | String -> only support <code>"svg"</code> <code>"png"</code> <code>"jpeg"</code> <code>"jpg"</code>  | Create new QR image synchronous  | |
