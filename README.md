@@ -20,3 +20,41 @@
 
     $ npm i @sylvainneung/qr-code-generator --save
 
+## Example
+
+'use strict';
+
+
+const qrGenerator = require('@sylvainneung/qr-code-generator');
+
+
+//default directory root of your project
+
+//Sync
+qrGenerator.generateQrImage("mydata", "mypicname", "png");
+
+
+//Async
+qrGenerator
+    .generateQrImageAsync("myOtherData", "otherpic", "svg")
+    .then(response => {
+        console.log("Data", response)
+    })
+    .catch(err => console.log("Err => ", err));
+
+
+## Documentation
+
+| Methods       | params        | description    |
+| ------------- |:-------------:| :---------:|
+| generateQrImageAsync     | data, picName, picType | Create new QR image asynchronous     |
+| generateQrImage     | data, picName, picType   | Create new QR image synchronous
+
+
+## Details params
+
+| Params       | Type        | description    | Infos |
+| ------------- |:-------------:| :---------:| :---------:|
+| data     | String | your data ( please check  |     Numeric only    Max. 7,089 characters (0, 1, 2, 3, 4, 5, 6, 7, 8, 9) / Alphanumeric    Max. 4,296 characters (0–9, A–Z [upper-case only], space, $, %, *, +, -, ., /, :) / Binary/byte     Max. 2,953 characters (8-bit bytes) (23624 bits)
+| picName     | String  | name of your file | |
+| picType     | String -> only support <code>"svg"</code> <code>"png"</code> <code>"jpeg"</code> <code>"jpg"</code>  | Create new QR image synchronous  | |
