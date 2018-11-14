@@ -20,6 +20,10 @@
 
     $ npm i @sylvainneung/qr-code-generator --save
 
+
+
+<a href="https://www.npmjs.com/package/@sylvainneung/qr-code-generator">https://www.npmjs.com/package/@sylvainneung/qr-code-generator</a>
+
 ## Example
 
 ``` javascript
