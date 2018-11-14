@@ -22,8 +22,8 @@
 
 ## Example
 
+``` javascript
 'use strict';
-
 
 const qrGenerator = require('@sylvainneung/qr-code-generator');
 
@@ -35,12 +35,14 @@ qrGenerator.generateQrImage("mydata", "mypicname", "png");
 
 
 //Async
+
 qrGenerator
     .generateQrImageAsync("myOtherData", "otherpic", "svg")
     .then(response => {
         console.log("Data", response)
     })
     .catch(err => console.log("Err => ", err));
+```
 
 
 ## Documentation
