@@ -90,24 +90,7 @@ function generateQrImage(data, picName, picType) {
         qr
             .image(data, {type: picType});
     let stream = qr_pic.pipe(fs.createWriteStream(`${picName}.${picType}`));
-
-    stream.on('finish', function () {
-        let response = {
-            error: null,
-            pic_path: path.resolve(`${picName}.${picType}`),
-            data: " -- qr image generate successfully --"
-        };
-        return response;
-    });
-
-    stream.on('error', function (err) {
-        let error = {
-            error: true,
-            pic_path: path.resolve(`${picName}.${picType}`),
-            data: err
-        };
-        return error;
-    });
+    return stream;
 }
 
 

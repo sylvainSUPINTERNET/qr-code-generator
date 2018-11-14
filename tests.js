@@ -1,14 +1,18 @@
 const _test = require('./index');
 
-_test
+//Asynchronous
+ _test
     .generateQrImageAsync("my data here", "myPic", "png")
     .then(function (data) {
-        console.log(data);
+        console.log("Async > ", data)
     })
-    .catch(err => console.log(err));
+    .catch(err =>
+        console.log("err", err)
+    );
 
 
-console.log(_test
-    .generateQrImage("other data", "mySyncPic", "png"));
+
+//Synchronous
+ _test.generateQrImage("other data", "mySyncPic", "png");
 
 
