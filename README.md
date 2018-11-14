@@ -18,5 +18,5 @@
 
 ## Get started
 
-    $ npm i @sylvainneung/qr-code-generator
+    $ npm i @sylvainneung/qr-code-generator --save
 
