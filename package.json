@@ -1,6 +1,6 @@
 {
-  "name": "qr-code-generator",
-  "version": "1.0.0",
+  "name": "@sylvainneung/qr-code-generator",
+  "version": "1.0.1",
   "description": "Generate QR code image",
   "main": "index.js",
   "scripts": {
@@ -15,6 +15,10 @@
     "code",
     "qr-code-generator"
   ],
+"repository": {
+  "type": "git",
+  "url": "https://github.com/sylvainSUPINTERNET/qr-code-generator"
+},
   "author": "\"Sylvain JOLY <https://github.com/sylvainSUPINTERNET>",
   "license": "ISC",
   "dependencies": {
