@@ -1,6 +1,6 @@
 {
   "name": "@sylvainneung/qr-code-generator",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Generate QR code image",
   "main": "index.js",
   "scripts": {

@@ -37,7 +37,7 @@ function _promise(data, picName, picType, picPath) {
                             if(picPath.length > 0){
                                 if(typeof picPath === "string"){
                                     if(fs.existsSync(picPath)){
-                                        pathP = `${__dirname}/${picPath}/`
+                                        pathP = `${path.dirname(require.main.filename || process.mainModule.filename)}/${picPath}/`
                                     } else {
                                         reject("Err : picPath => dir doesn't exist, (root project path used)");
                                     }
@@ -49,7 +49,7 @@ function _promise(data, picName, picType, picPath) {
                             }
                         } else {
                             //default
-                            pathP = `${__dirname}/`;
+                            pathP = `${path.dirname(require.main.filename || process.mainModule.filename)}/`;
                         }
 
 
@@ -117,7 +117,7 @@ function generateQrImage(data, picName, picType, picPath) {
         if(picPath.length > 0){
             if(typeof picPath === "string"){
                 if(fs.existsSync(picPath)){
-                    pathP = `${__dirname}/${picPath}/`
+                    pathP = `${path.dirname(require.main.filename || process.mainModule.filename)}/${picPath}/`
                 } else {
                     console.log("Err : picPath dir doesn't exist ! (root project path used)");
                 }
@@ -129,7 +129,7 @@ function generateQrImage(data, picName, picType, picPath) {
         }
     } else {
         //default
-        pathP = `${__dirname}/`;
+        pathP = `${path.dirname(require.main.filename || process.mainModule.filename)}/`;
     }
 
     let qr_pic =
