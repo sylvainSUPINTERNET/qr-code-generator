@@ -2,6 +2,15 @@
 
 ***Simply generate your QR codes***
 
+<ul>
+<li>Custom name</li>
+<li>Custom data</li>
+<li>Multiple formats supported : png, jpeg, jpg, svg </li>
+<li>Path custom</li>
+<li>Async / Sync</li>
+</ul>
+
+
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/sylvainSUPINTERNET/qr-code-generator/commits/master)
 
 ## Required
