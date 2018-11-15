@@ -16,10 +16,11 @@ const qr = require('qr-image');
  * @param data
  * @param picName
  * @param picType
+ * @param picPath (optional, default project root)
  * @returns {Promise<any>}
  * @private
  */
-function _promise(data, picName, picType) {
+function _promise(data, picName, picType, picPath) {
     return new Promise((resolve, reject) => {
         if (data && picType && picName) {
             if (typeof picName !== 'string') {
@@ -30,10 +31,32 @@ function _promise(data, picName, picType) {
             } else {
                 if (typeof picType === 'string') {
                     if (picType === "svg" || picType === "png" || picType === "jpg" || picType === "jpeg") {
+
+                        let pathP = "";
+                        if(picPath){
+                            if(picPath.length > 0){
+                                if(typeof picPath === "string"){
+                                    if(fs.existsSync(picPath)){
+                                        pathP = `${__dirname}/${picPath}/`
+                                    } else {
+                                        reject("Err : picPath => dir doesn't exist, (root project path used)");
+                                    }
+                                } else {
+                                    reject("Err : picPath parameter is not a string. Expected string")
+                                }
+                            } else {
+                                    reject("Err : picPath parameter is null. Expected string not null")
+                            }
+                        } else {
+                            //default
+                            pathP = `${__dirname}/`;
+                        }
+
+
                         let qr_pic =
                             qr
                                 .image(data, {type: picType});
-                        let stream = qr_pic.pipe(fs.createWriteStream(`${picName}.${picType}`));
+                        let stream = qr_pic.pipe(fs.createWriteStream(`${pathP}${picName}.${picType}`));
 
                         stream.on('finish', function () {
                             let response = {
@@ -71,10 +94,11 @@ function _promise(data, picName, picType) {
  * @param data
  * @param picName
  * @param picType
+ * @param picPath (optional, default project root)
  * @returns {Promise<void>}
  */
-async function generateQrImageAsync(data, picName, picType) {
-    const generate_data = await _promise(data, picName, picType);
+async function generateQrImageAsync(data, picName, picType, picPath) {
+    const generate_data = await _promise(data, picName, picType, picPath);
     return generate_data;
 }
 
@@ -83,13 +107,35 @@ async function generateQrImageAsync(data, picName, picType) {
  * @param data
  * @param picName
  * @param picType
+ * @param picPath (optional, default project root)
  * @return {Object} response from generation action
  */
-function generateQrImage(data, picName, picType) {
+function generateQrImage(data, picName, picType, picPath) {
+
+    let pathP = "";
+    if(picPath){
+        if(picPath.length > 0){
+            if(typeof picPath === "string"){
+                if(fs.existsSync(picPath)){
+                    pathP = `${__dirname}/${picPath}/`
+                } else {
+                    console.log("Err : picPath dir doesn't exist ! (root project path used)");
+                }
+            } else {
+                console.log("Err : picPath parameter is not a string. Expected string")
+            }
+        } else {
+            console.log("Err : picPath parameter is null. Expected string not null")
+        }
+    } else {
+        //default
+        pathP = `${__dirname}/`;
+    }
+
     let qr_pic =
         qr
             .image(data, {type: picType});
-    let stream = qr_pic.pipe(fs.createWriteStream(`${picName}.${picType}`));
+    let stream = qr_pic.pipe(fs.createWriteStream(`${pathP}${picName}.${picType}`));
     return stream;
 }
 

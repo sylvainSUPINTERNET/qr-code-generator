@@ -35,13 +35,12 @@ const qrGenerator = require('@sylvainneung/qr-code-generator');
 //default directory root of your project
 
 //Sync
-qrGenerator.generateQrImage("mydata", "mypicname", "png");
+qrGenerator.generateQrImage("mydata", "mypicname", "png", "my/dir/path/optional");
 
 
 //Async
-
 qrGenerator
-    .generateQrImageAsync("myOtherData", "otherpic", "svg")
+    .generateQrImageAsync("myOtherData", "otherpic", "svg", "my/dir/path/optional")
     .then(response => {
         console.log("Data", response)
     })
@@ -53,8 +52,8 @@ qrGenerator
 
 | Methods       | params        | description    |
 | ------------- |:-------------:| :---------:|
-| generateQrImageAsync     | data, picName, picType | Create new QR image asynchronous     |
-| generateQrImage     | data, picName, picType   | Create new QR image synchronous
+| generateQrImageAsync     | data, picName, picType, picPath | Create new QR image asynchronous     |
+| generateQrImage     | data, picName, picType, picPath   | Create new QR image synchronous
 
 
 ## Details params
@@ -64,3 +63,4 @@ qrGenerator
 | data     | String | qr picture data|     Numeric only    Max. 7,089 characters (0, 1, 2, 3, 4, 5, 6, 7, 8, 9) / Alphanumeric    Max. 4,296 characters (0–9, A–Z [upper-case only], space, $, %, *, +, -, ., /, :) / Binary/byte     Max. 2,953 characters (8-bit bytes) (23624 bits)
 | picName     | String  | name of your file | |
 | picType     | String -> only support <code>"svg"</code> <code>"png"</code> <code>"jpeg"</code> <code>"jpg"</code>  | picture type  | |
+| picPath     | String? (optional)  | folder path  | "my/folder/name" |
