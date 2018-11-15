@@ -1,6 +1,9 @@
-﻿## QR-code-generator
+﻿## Required
+
+
 
 ***Simply generate your QR codes***
+
 
 <ul>
 <li>Custom name</li>
