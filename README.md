@@ -1,4 +1,4 @@
-﻿## QR-code-generator
+## QR-code-generator
 
 ***Simply generate your QR codes***
 
