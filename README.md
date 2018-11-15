@@ -1,6 +1,4 @@
-﻿## Required
-
-
+## QR-code-generator
 
 ***Simply generate your QR codes***
 
